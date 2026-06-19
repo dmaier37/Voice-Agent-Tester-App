@@ -16,6 +16,7 @@ export interface DemoRequest {
   phone_number: string;
   consent_given: boolean;
   call_status: "queued" | "in-progress" | "completed" | "failed";
+  ip_address: string | null;
   transcript: string | null;
   booked_demo: boolean;
   feedback_rating: number | null;
