@@ -1,0 +1,298 @@
+import type { NicheTemplate } from "@/types";
+
+// Sorted alphabetically by display_name.
+// This array is the source of truth for both the form dropdown and the seed script.
+export const NICHE_TEMPLATES: Omit<NicheTemplate, "id">[] = [
+  {
+    niche_key: "auto_detailing",
+    display_name: "Auto Detailing",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["interior detail", "exterior wash and wax", "paint correction", "ceramic coating", "engine bay cleaning", "headlight restoration"],
+    faqs: [
+      { question: "How long does a full detail take?", answer: "Interior and exterior together is typically 3-6 hours depending on vehicle size and condition." },
+      { question: "How often should I get my car detailed?", answer: "Every 3-6 months for maintenance detailing; ceramic coating lasts 1-3 years." },
+    ],
+    booking_categories: ["Interior detail", "Full detail", "Ceramic coating consult"],
+  },
+  {
+    niche_key: "auto_repair",
+    display_name: "Auto Repair Shop",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["oil change", "brake service", "tire rotation", "diagnostics", "transmission service", "AC repair"],
+    faqs: [
+      { question: "How long will my repair take?", answer: "Depends on the service — a tech would need to inspect it first to give a firm estimate." },
+      { question: "Do you offer loaner cars?", answer: "Some shops do — that's something the advisor can confirm when you bring it in." },
+    ],
+    booking_categories: ["Diagnostic appointment", "Oil change", "Drop-off"],
+  },
+  {
+    niche_key: "chiropractic",
+    display_name: "Chiropractic Office",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["spinal adjustment", "sports injury", "posture correction", "neck and back pain", "headache relief"],
+    faqs: [
+      { question: "Does it hurt?", answer: "Most patients find it comfortable — the chiropractor adjusts pressure based on your feedback." },
+      { question: "How many visits will I need?", answer: "That depends on your situation — the doctor will put together a care plan after your assessment." },
+    ],
+    booking_categories: ["New patient exam", "Follow-up adjustment", "Sports injury consult"],
+  },
+  {
+    niche_key: "daycare",
+    display_name: "Daycare / Childcare",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["full-day care", "half-day programs", "after-school care", "summer camp", "infant care", "toddler programs"],
+    faqs: [
+      { question: "What ages do you accept?", answer: "Typically 6 weeks through school age — varies by program, and we're happy to confirm at your tour." },
+      { question: "What's the staff-to-child ratio?", answer: "It varies by age group per state licensing requirements — we can share ours when you visit." },
+    ],
+    booking_categories: ["Center tour", "Enrollment consultation", "Waitlist registration"],
+  },
+  {
+    niche_key: "dental",
+    display_name: "Dental Practice",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["cleanings", "fillings", "whitening", "Invisalign consultations", "emergency exams"],
+    faqs: [
+      { question: "Do you take my insurance?", answer: "The front desk can verify your specific plan — I can get you scheduled and they'll confirm coverage." },
+      { question: "How often should I get a cleaning?", answer: "Typically every six months, though your dentist may recommend more based on your needs." },
+    ],
+    booking_categories: ["New patient exam", "Cleaning", "Emergency visit"],
+  },
+  {
+    niche_key: "electrical",
+    display_name: "Electrical",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["panel upgrades", "outlet and switch installation", "ceiling fans and lighting", "EV charger installation", "generator hookup", "safety inspections"],
+    faqs: [
+      { question: "Do I need a permit for electrical work?", answer: "For most panel and wiring work, yes — a licensed electrician pulls the permits as part of the job." },
+      { question: "How long does a panel upgrade take?", answer: "Typically 4-8 hours for a full replacement, though it can vary based on the home." },
+    ],
+    booking_categories: ["Free estimate", "Service call", "Safety inspection"],
+  },
+  {
+    niche_key: "fitness",
+    display_name: "Fitness Studio / Gym",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["group fitness classes", "personal training", "yoga", "HIIT", "spin", "nutrition coaching"],
+    faqs: [
+      { question: "Do you offer a free trial?", answer: "Most studios offer a free first class or trial week — I can get you scheduled." },
+      { question: "What are your hours?", answer: "Hours vary by location — I can note your preferred time and have someone confirm." },
+    ],
+    booking_categories: ["Free trial class", "Membership tour", "Personal training consult"],
+  },
+  {
+    niche_key: "flooring",
+    display_name: "Flooring",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["hardwood installation", "luxury vinyl plank", "tile installation", "carpet installation", "floor refinishing", "subfloor repair"],
+    faqs: [
+      { question: "How long does installation take?", answer: "A single room typically takes 1-2 days; whole-home projects run 3-5 days depending on size." },
+      { question: "How soon can we walk on the new floors?", answer: "Hardwood needs about 24 hours; tile grout typically 24-48 hours before normal use." },
+    ],
+    booking_categories: ["Free estimate", "Material consultation", "Measurement appointment"],
+  },
+  {
+    niche_key: "general_contractor",
+    display_name: "General Contractor / Remodeling",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["kitchen remodeling", "bathroom renovation", "room additions", "deck and patio construction", "basement finishing", "whole-home renovation"],
+    faqs: [
+      { question: "How long does a remodel take?", answer: "A bathroom is typically 2-4 weeks; a kitchen 4-8 weeks — scope and materials affect the timeline." },
+      { question: "Do you handle permits?", answer: "Licensed contractors pull all required permits as part of the project." },
+    ],
+    booking_categories: ["Free estimate", "Project consultation", "Walkthrough"],
+  },
+  {
+    niche_key: "salon",
+    display_name: "Hair Salon",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["haircuts", "color", "balayage", "blowouts", "treatments"],
+    faqs: [
+      { question: "How long does color take?", answer: "Usually 2-3 hours depending on the service and your hair." },
+      { question: "Do I need to book in advance?", answer: "We recommend it, especially for color — I can check availability and get you on the books." },
+    ],
+    booking_categories: ["Haircut", "Color appointment", "Consultation"],
+  },
+  {
+    niche_key: "hvac",
+    display_name: "HVAC",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["AC installation and replacement", "furnace installation", "HVAC repair", "seasonal tune-ups", "duct cleaning", "smart thermostat installation"],
+    faqs: [
+      { question: "How often should I service my HVAC?", answer: "Typically once or twice a year — before cooling season and before heating season." },
+      { question: "How long does a system replacement take?", answer: "Most standard replacements are completed in one day." },
+    ],
+    booking_categories: ["Service call", "Free estimate", "Maintenance tune-up"],
+  },
+  {
+    niche_key: "landscaping",
+    display_name: "Landscaping",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["lawn maintenance", "landscape design", "sod installation", "irrigation systems", "tree trimming and removal", "hardscaping"],
+    faqs: [
+      { question: "How often do you come out for maintenance?", answer: "Typically weekly or bi-weekly depending on the plan and season." },
+      { question: "Do you handle sprinkler systems?", answer: "Many landscaping companies install and service irrigation — we can confirm what's included at your consult." },
+    ],
+    booking_categories: ["Free estimate", "Design consultation", "Maintenance quote"],
+  },
+  {
+    niche_key: "law_firm",
+    display_name: "Law Firm",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["personal injury", "family law", "estate planning", "business contracts", "criminal defense"],
+    faqs: [
+      { question: "Do you offer free consultations?", answer: "Many firms do — I can get you on the calendar for one right now." },
+      { question: "How much will this cost?", answer: "Fees vary by case type — the attorney will go over that during your consultation." },
+    ],
+    booking_categories: ["Free consultation", "Case review"],
+  },
+  {
+    niche_key: "locksmith",
+    display_name: "Locksmith",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["lockout service", "lock rekeying", "lock installation and replacement", "key duplication", "smart lock installation", "safe opening"],
+    faqs: [
+      { question: "How fast can you get here for a lockout?", answer: "Most locksmiths aim for 15-30 minutes — it depends on your location." },
+      { question: "How much does a lockout cost?", answer: "Typically $75-150 depending on the time of day and lock type — the tech can confirm before arriving." },
+    ],
+    booking_categories: ["Emergency lockout", "Scheduled service", "Free estimate"],
+  },
+  {
+    niche_key: "massage",
+    display_name: "Massage Therapy",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["Swedish massage", "deep tissue", "sports massage", "prenatal massage", "hot stone", "reflexology"],
+    faqs: [
+      { question: "What should I wear?", answer: "You'll be properly draped throughout — most clients undress to their comfort level." },
+      { question: "How long are sessions?", answer: "Typically 60 or 90 minutes — we can help you pick the right length for your goals." },
+    ],
+    booking_categories: ["60-minute session", "90-minute session", "Consultation"],
+  },
+  {
+    niche_key: "med_spa",
+    display_name: "Med Spa",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["Botox", "dermal fillers", "laser hair removal", "chemical peels", "microneedling"],
+    faqs: [
+      { question: "Do you offer financing?", answer: "Many med spas offer payment plans — that's something the team can go over with you at your consultation." },
+      { question: "How long is recovery for filler?", answer: "Typically minimal — a few days of mild swelling. Your provider will walk you through what to expect." },
+    ],
+    booking_categories: ["Free consultation", "Treatment follow-up"],
+  },
+  {
+    niche_key: "moving",
+    display_name: "Moving Company",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["local moving", "long-distance moving", "packing services", "furniture assembly and disassembly", "storage solutions", "specialty item moving"],
+    faqs: [
+      { question: "How far in advance should I book?", answer: "2-4 weeks for local moves; 4-8 weeks for long-distance, especially around peak summer months." },
+      { question: "Do you provide packing materials?", answer: "Most movers offer boxes and supplies — ask about packing packages when you get your quote." },
+    ],
+    booking_categories: ["Free quote", "In-home estimate", "Moving date hold"],
+  },
+  {
+    niche_key: "painting",
+    display_name: "Painting",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["interior painting", "exterior painting", "cabinet refinishing", "deck and fence staining", "drywall repair", "color consultation"],
+    faqs: [
+      { question: "How long does interior painting take?", answer: "A typical room takes 1-2 days; whole-home projects vary by size and number of rooms." },
+      { question: "Do you move furniture?", answer: "Most painters move and protect furniture as part of the job — confirm at your estimate." },
+    ],
+    booking_categories: ["Free estimate", "Color consultation", "Walkthrough"],
+  },
+  {
+    niche_key: "pest_control",
+    display_name: "Pest Control",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["general pest control", "termite treatment", "rodent control", "bed bug treatment", "mosquito control", "wildlife removal"],
+    faqs: [
+      { question: "Is the treatment safe for kids and pets?", answer: "Most modern treatments are safe once dry — the technician will advise on re-entry time for your specific situation." },
+      { question: "How many visits does it take?", answer: "Many issues resolve in 1-2 visits; ongoing prevention plans are also available." },
+    ],
+    booking_categories: ["Free inspection", "Service appointment", "Recurring plan consult"],
+  },
+  {
+    niche_key: "pet_grooming",
+    display_name: "Pet Grooming",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["bath and brush", "full groom", "nail trimming", "ear cleaning", "teeth brushing", "de-shedding treatment"],
+    faqs: [
+      { question: "How long does a grooming appointment take?", answer: "Usually 1.5-3 hours depending on breed and coat condition." },
+      { question: "How often should I bring my dog in?", answer: "Most dogs do well every 6-8 weeks — breed and coat type affect the schedule." },
+    ],
+    booking_categories: ["Full groom", "Bath and brush", "Nail trim"],
+  },
+  {
+    niche_key: "plumbing",
+    display_name: "Plumbing",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["leak detection and repair", "drain cleaning", "water heater installation", "pipe replacement", "fixture installation", "emergency plumbing"],
+    faqs: [
+      { question: "Do you offer emergency service?", answer: "Most plumbers offer 24/7 emergency calls — let me note the urgency so we can get someone out fast." },
+      { question: "How much does a water heater replacement cost?", answer: "It varies by unit type and labor — a technician can give you an exact quote on-site." },
+    ],
+    booking_categories: ["Service call", "Free estimate", "Emergency service"],
+  },
+  {
+    niche_key: "real_estate",
+    display_name: "Real Estate Agency",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["buyer representation", "seller representation", "property valuation", "investment properties", "rentals"],
+    faqs: [
+      { question: "What's the market like right now?", answer: "Market conditions vary by area — an agent can give you a current local picture." },
+      { question: "How long does it take to buy a home?", answer: "Typically 30-60 days from offer to close, depending on financing and market conditions." },
+    ],
+    booking_categories: ["Buyer consultation", "Seller consultation", "Property walkthrough"],
+  },
+  {
+    niche_key: "roofing",
+    display_name: "Roofing",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["roof replacement", "roof repair", "storm damage inspection", "gutter installation and repair", "skylights", "flat roofing"],
+    faqs: [
+      { question: "How long does a roof replacement take?", answer: "Most residential homes can be completed in 1-3 days depending on size and pitch." },
+      { question: "Do you work with insurance claims?", answer: "Many roofers handle the paperwork with your adjuster — worth asking at your estimate." },
+    ],
+    booking_categories: ["Free estimate", "Storm damage inspection", "Consultation"],
+  },
+  {
+    niche_key: "tutoring",
+    display_name: "Tutoring",
+    first_message: "Thanks for calling {business_name}, this is Ava — how can I help you today?",
+    system_prompt: "",
+    services: ["math tutoring", "reading and writing", "science", "SAT/ACT test prep", "homework help", "college application coaching"],
+    faqs: [
+      { question: "How quickly will I see results?", answer: "Most students see meaningful improvement within 4-6 sessions, though it varies by subject and starting point." },
+      { question: "Are sessions in-person or online?", answer: "Both options are typically available — we'll match you to whatever works best for your schedule." },
+    ],
+    booking_categories: ["Free assessment", "Trial session", "Ongoing package"],
+  },
+];
+
+export function getNicheByKey(key: string): Omit<NicheTemplate, "id"> | undefined {
+  return NICHE_TEMPLATES.find((t) => t.niche_key === key);
+}
