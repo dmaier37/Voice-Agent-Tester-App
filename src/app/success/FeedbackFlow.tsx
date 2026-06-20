@@ -51,13 +51,12 @@ function StarRow({
 function CTACard() {
   return (
     <div className="rounded-2xl bg-indigo-50 border border-indigo-100 p-6">
-      <p className="text-sm font-medium text-slate-800">Like what you heard?</p>
+      <p className="text-base font-bold text-slate-900">Want this for your business?</p>
       <p className="mt-1 text-sm text-slate-500">
-        Book a 20-minute call — get{" "}
+        Book a free 20-minute call. Sign up and get{" "}
         <span className="inline-block rounded-full bg-indigo-100 px-2 py-0.5 text-xs font-semibold text-indigo-700">
           3 months free
-        </span>{" "}
-        when you go live.
+        </span>.
       </p>
       <a
         href={process.env.NEXT_PUBLIC_BOOKING_URL ?? "#"}
