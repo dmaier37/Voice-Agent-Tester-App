@@ -64,7 +64,12 @@ export default function IntakeForm() {
 
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-16">
-      <div className="w-full max-w-lg bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <div className="w-full max-w-lg">
+        <div className="mb-5 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">ESMIAN Web Solutions</p>
+          <p className="mt-1 text-lg font-semibold text-slate-700">Voice Agent Demo</p>
+        </div>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-slate-900">Hear your AI receptionist in action</h1>
           <p className="mt-2 text-slate-500 text-sm">
@@ -159,6 +164,7 @@ export default function IntakeForm() {
             {submitting ? "Placing your call…" : "Call me now →"}
           </button>
         </form>
+      </div>
       </div>
     </main>
   );
