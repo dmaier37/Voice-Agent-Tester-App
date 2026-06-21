@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase";
+import { sendFeedbackEmail } from "@/lib/email";
 
 const FeedbackSchema = z.object({
   id: z.string().uuid(),
@@ -23,12 +24,28 @@ export async function POST(req: NextRequest) {
 
   const { id, rating, comment } = parsed.data;
 
+  const { data: existing } = await supabase
+    .from("demo_requests")
+    .select("business_name, niche_key")
+    .eq("id", id)
+    .single();
+
   const { error } = await supabase
     .from("demo_requests")
     .update({ feedback_rating: rating, feedback_comment: comment })
     .eq("id", id);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+  if (existing && rating !== null) {
+    await sendFeedbackEmail({
+      id,
+      businessName: existing.business_name,
+      nicheKey: existing.niche_key,
+      rating,
+      comment,
+    });
+  }
 
   return NextResponse.json({ ok: true });
 }

@@ -48,7 +48,17 @@ function StarRow({
   );
 }
 
-function CTACard() {
+function CTACard({ id }: { id: string }) {
+  async function handleClick() {
+    // Fire-and-forget — don't block the tab opening
+    fetch("/api/cta-click", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    }).catch(() => {});
+    window.open(process.env.NEXT_PUBLIC_BOOKING_URL ?? "#", "_blank", "noopener,noreferrer");
+  }
+
   return (
     <div className="rounded-2xl bg-indigo-50 border border-indigo-100 p-6">
       <p className="text-base font-bold text-slate-900">Want this for your business?</p>
@@ -58,14 +68,13 @@ function CTACard() {
           3 months free
         </span>.
       </p>
-      <a
-        href={process.env.NEXT_PUBLIC_BOOKING_URL ?? "#"}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
+        onClick={handleClick}
         className="mt-4 inline-block rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 transition-colors"
       >
         Book a 20 min call →
-      </a>
+      </button>
     </div>
   );
 }
@@ -134,7 +143,7 @@ export default function FeedbackFlow({ id }: { id: string }) {
         <div className="rounded-2xl bg-red-50 border border-red-100 px-5 py-4 text-sm text-red-600 text-center">
           The call ended unexpectedly. No worries — book a 20 min call below.
         </div>
-        <CTACard />
+        <CTACard id={id} />
         <Link href="/" className="inline-block text-sm text-slate-400 hover:text-slate-600 transition-colors">
           ← Try a different niche
         </Link>
@@ -174,7 +183,7 @@ export default function FeedbackFlow({ id }: { id: string }) {
       </div>
 
       {/* CTA — always visible */}
-      <CTACard />
+      <CTACard id={id} />
 
       <Link href="/" className="inline-block text-sm text-slate-400 hover:text-slate-600 transition-colors">
         ← Try a different niche

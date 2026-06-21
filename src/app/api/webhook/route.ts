@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { sendCallEndedEmail } from "@/lib/email";
 
-// endedReason values Vapi may send — anything not in the completed set is treated as failed.
 const COMPLETED_REASONS = new Set([
   "customer-ended-call",
   "assistant-ended-call",
@@ -35,7 +35,6 @@ export async function POST(req: NextRequest) {
 
   const { message } = payload;
 
-  // Vapi sends several event types (status-update, speech-update, etc.) — only act on end-of-call.
   if (message?.type !== "end-of-call-report") {
     return NextResponse.json({ received: true });
   }
@@ -46,12 +45,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing demo_request_id" }, { status: 422 });
   }
 
-  const callStatus = COMPLETED_REASONS.has(message.endedReason ?? "")
-    ? "completed"
-    : "failed";
-
-  // Vapi puts the transcript at message.transcript; fall back to message.artifact.transcript.
+  const callStatus = COMPLETED_REASONS.has(message.endedReason ?? "") ? "completed" : "failed";
   const transcript = message.transcript ?? message.artifact?.transcript ?? null;
+
+  // Fetch the row for business_name + niche_key before updating (needed for email).
+  const { data: existing } = await supabase
+    .from("demo_requests")
+    .select("business_name, niche_key, phone_number")
+    .eq("id", demoRequestId)
+    .single();
 
   const { error: dbError } = await supabase
     .from("demo_requests")
@@ -61,6 +63,16 @@ export async function POST(req: NextRequest) {
   if (dbError) {
     console.error("[webhook] supabase update failed:", dbError.message);
     return NextResponse.json({ error: dbError.message }, { status: 500 });
+  }
+
+  if (existing) {
+    await sendCallEndedEmail({
+      businessName: existing.business_name,
+      nicheKey: existing.niche_key,
+      phoneNumber: existing.phone_number,
+      callStatus,
+      transcript,
+    });
   }
 
   console.log("[webhook] updated demo_requests row:", { demoRequestId, callStatus, endedReason: message.endedReason });
